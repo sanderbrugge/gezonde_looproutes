@@ -7,10 +7,9 @@ import java.net.URLEncoder;
 import java.nio.charset.Charset;
 
 public abstract class WMSTileProvider extends UrlTileProvider {
-
     // Web Mercator n/w corner of the map.
-    private static final double[] TILE_ORIGIN = { -20037508.34789244, 20037508.34789244 };
-    // array indexes for that data
+    private static final double[] TILE_ORIGIN = {-20037508.34789244, 20037508.34789244};
+    //array indexes for that data
     private static final int ORIG_X = 0;
     private static final int ORIG_Y = 1; // "
 
@@ -31,14 +30,8 @@ public abstract class WMSTileProvider extends UrlTileProvider {
         super(x, y);
     }
 
-    @SuppressWarnings("deprecation")
     protected String getCql() {
-        try {
-            return URLEncoder.encode(cqlString, Charset.defaultCharset().name());
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return URLEncoder.encode(cqlString);
-        }
+        return URLEncoder.encode(cqlString);
     }
 
     public void setCql(String c) {
@@ -46,12 +39,12 @@ public abstract class WMSTileProvider extends UrlTileProvider {
     }
 
     // Return a web Mercator bounding box given tile x/y indexes and a zoom
-// level.
+    // level.
     protected double[] getBoundingBox(int x, int y, int zoom) {
         double tileSize = MAP_SIZE / Math.pow(2, zoom);
         double minx = TILE_ORIGIN[ORIG_X] + x * tileSize;
-        double maxx = TILE_ORIGIN[ORIG_X] + (x + 1) * tileSize;
-        double miny = TILE_ORIGIN[ORIG_Y] - (y + 1) * tileSize;
+        double maxx = TILE_ORIGIN[ORIG_X] + (x+1) * tileSize;
+        double miny = TILE_ORIGIN[ORIG_Y] - (y+1) * tileSize;
         double maxy = TILE_ORIGIN[ORIG_Y] - y * tileSize;
 
         double[] bbox = new double[4];

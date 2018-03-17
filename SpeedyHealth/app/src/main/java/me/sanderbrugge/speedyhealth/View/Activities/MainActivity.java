@@ -18,6 +18,7 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.maps.model.TileOverlay;
 import com.google.android.gms.maps.model.TileOverlayOptions;
+import com.google.android.gms.maps.model.TileProvider;
 import com.google.maps.android.PolyUtil;
 
 import java.net.MalformedURLException;
@@ -30,6 +31,7 @@ import me.sanderbrugge.speedyhealth.Model.Looproutes;
 import me.sanderbrugge.speedyhealth.Network.ApiService;
 import me.sanderbrugge.speedyhealth.Network.DataBuilder;
 import me.sanderbrugge.speedyhealth.R;
+import me.sanderbrugge.speedyhealth.Util.TileProviderFactory;
 import me.sanderbrugge.speedyhealth.Util.WMSTileProvider;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -82,30 +84,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public static WMSTileProvider getWMSTileProviderByName() {
-        final String OSGEO_WMS = "http://geo.irceline.be/annual/wms"
-                + "layers: 'rioifdm:pm10_anmean_'+'2016'+'_ospm_vl'" +
-                "transparent: true" +
-                "format: 'image/png" +
-                "tiled: true" +
-                "opacity: 0.7" +
-                "maxZoom: 19";
-
-        return new WMSTileProvider(256, 256) {
-
-            @Override
-            public synchronized URL getTileUrl(int x, int y, int zoom) {
-                final double[] bbox = getBoundingBox(x, y, zoom);
-                String s = String.format(Locale.US, OSGEO_WMS, bbox[MINX], bbox[MINY], bbox[MAXX], bbox[MAXY]);
-                try {
-                    return new URL(s);
-                } catch (MalformedURLException e) {
-                    throw new AssertionError(e);
-                }
-            }
-        };
-    }
-
     protected void loadMap(GoogleMap googleMap) {
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 new LatLng(51.0543422, 3.717424299999948), 10)
@@ -121,12 +99,12 @@ public class MainActivity extends AppCompatActivity {
             googleMap.addPolyline(new PolylineOptions().addAll(decodedPath));
         }
 
-        TileOverlay tileOverlay = googleMap.addTileOverlay(new TileOverlayOptions()
-                .tileProvider(getWMSTileProviderByName())
-        );
+        TileProvider tileProvider = TileProviderFactory.getOsgeoWmsTileProvider();
+        TileOverlay tileOverlay = googleMap.addTileOverlay(new TileOverlayOptions().tileProvider(tileProvider));
 
         tileOverlay.setTransparency(0.5f);
         tileOverlay.setVisible(true);
+        tileOverlay.setFadeIn(true);
 
         Log.i(TAG,"TILE OVERLAY: " + tileOverlay.getTransparency() + "\n" + tileOverlay.toString());
     }
