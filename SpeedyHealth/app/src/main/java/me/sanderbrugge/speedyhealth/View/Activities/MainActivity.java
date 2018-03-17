@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         );
 
         List<List<LatLng>> decodedPaths = new ArrayList<>();
-        for(int i = 0; i <= looproutes.size() -1; i++) {
+        for(int i = 0; i <= 29; i++) {
             List<LatLng> decodedPath = PolyUtil.decode(looproutes.get(i).getLineGoogle());
             decodedPaths.add(decodedPath);
         }
