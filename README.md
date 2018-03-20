@@ -1,6 +1,6 @@
 # SpeedyHealth
 
-This is an application that was developped during the Apps For Ghent Hackaton (17/03/'18).
+This is an application that was developped during the [Apps For Ghent Hackaton](http://appsforghent.be/2018) (17/03/'18).
 
 The goal was to come up with an idea and convert that in to an application over the time period of 7 hours, the only condition being that we made use of the Open data provided by Ghent.
 
@@ -22,6 +22,10 @@ Due to not being able to fix the pollution WMS in time, the working example make
 ## Acquired skills
 
 Learned to work with WMS and a more in depth understanding of the Google Maps API's.
+
+## Final result
+
+![final result](https://gyazo.com/e24aa8e3554ca950a3f13e1dcb7f674a)
 
 ## Disclaimer
 
