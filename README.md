@@ -25,7 +25,7 @@ Learned to work with WMS and a more in depth understanding of the Google Maps AP
 
 ## Final result
 
-![final result](https://i.gyazo.com/e24aa8e3554ca950a3f13e1dcb7f674a.mp4)
+[final result](https://i.gyazo.com/e24aa8e3554ca950a3f13e1dcb7f674a.mp4)
 
 ## Disclaimer
 
