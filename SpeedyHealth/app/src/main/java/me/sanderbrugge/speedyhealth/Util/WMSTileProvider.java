@@ -1,5 +1,7 @@
 package me.sanderbrugge.speedyhealth.Util;
 
+import android.util.Log;
+
 import com.google.android.gms.maps.model.UrlTileProvider;
 
 import java.io.UnsupportedEncodingException;
@@ -66,6 +68,8 @@ public abstract class WMSTileProvider extends UrlTileProvider {
     protected double[] getBoundingBox(int x, int y, int zoom) {
         double newX = inMetersXCoordinate(x);
         double newY = inMetersYCoordinate(y);
+
+        Log.i("WMSTILEPROVIDER", "x = " + x + " y = " + y);
 
         double tileSize = MAP_SIZE / Math.pow(2, zoom);
         double minx = TILE_ORIGIN[ORIG_X] + x * tileSize;
